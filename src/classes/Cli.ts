@@ -52,7 +52,7 @@ class Cli {
       })
       .catch((error) => {
         console.log(error);
-      });;
+      });
   }
 
   // method to create a vehicle
@@ -81,7 +81,7 @@ class Cli {
       })
       .catch((error) => {
         console.log(error);
-      });;
+      });
   }
 
   // method to create a car
@@ -140,7 +140,7 @@ class Cli {
       })
       .catch((error) => {
         console.log(error);
-      });;
+      });
   }
 
   // method to create a truck
@@ -205,7 +205,7 @@ class Cli {
       })
       .catch((error) => {
         console.log(error);
-      });;
+      });
   }
 
   // method to create a motorbike
@@ -297,13 +297,12 @@ class Cli {
       })
       .catch((error) => {
         console.log(error);
-      });;
+      });
   }
 
   // method to find a vehicle to tow
   // TODO: add a parameter to accept a truck object
   findVehicleToTow(truck: Truck): void {
-    
     inquirer
       .prompt([
         {
@@ -324,9 +323,11 @@ class Cli {
         // TODO: if it is not, tow the selected vehicle then perform actions on the truck to allow the user to select another action
         //console.log(answers.vehicleToTow);
         //console.log(truck);
-        
+
         if (answers.vehicleToTow.vin === truck.vin) {
-          console.log(`The truck cannot tow itself. Please select another option`);
+          console.log(
+            `The truck cannot tow itself. Please select another option`
+          );
           console.log();
           this.performActions();
         } else {
@@ -438,37 +439,42 @@ class Cli {
           //if (this.vehicles instanceof Truck) {
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i] instanceof Truck) {
-              truck = this.vehicles[i] as Truck;
-              this.findVehicleToTow(truck);
-              return;
-            } else {
-              console.log("Only trucks can tow");
-              this.findVehicleToTow(this.vehicles[i] as Truck);
-              return;
+              if (this.vehicles[i].vin === this.selectedVehicleVin) {
+                truck = this.vehicles.find(
+                  (tr) => tr.vin === this.vehicles[i].vin
+                ) as Truck;
+                //truck = this.vehicles[i] as Truck;
+                this.findVehicleToTow(truck);
+                return;
+              } else {
+                console.log("Only trucks can tow");
+                //this.findVehicleToTow(this.vehicles[i] as Truck);
+                this.performActions();
+                return;
+              }
             }
           }
         }
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
         else if (answers.action === "Pop a Wheelie!") {
-          let motorbike: Motorbike | undefined;
-          
+          let motorcycle: Motorbike | undefined;
+
           for (let i = 0; i < this.vehicles.length; i++) {
             if (this.vehicles[i] instanceof Motorbike) {
               if (this.vehicles[i].vin === this.selectedVehicleVin) {
-                motorbike = this.vehicles.find(mb => mb.vin === this.selectedVehicleVin) as Motorbike;
-                motorbike.wheelie();
+                motorcycle = this.vehicles.find(
+                  (mb) => mb.vin === this.vehicles[i].vin
+                ) as Motorbike;
+                motorcycle.wheelie();
                 console.log();
                 break;
-              } 
-              else {
+              } else {
                 console.log("Only motorbikes can pop a wheelie");
                 console.log();
               }
             }
           }
-        }
-          
-         else if (answers.action === "Select or create another vehicle") {
+        } else if (answers.action === "Select or create another vehicle") {
           // start the cli to return to the initial prompt if the user wants to select or create another vehicle
           this.startCli();
           return;
@@ -483,7 +489,7 @@ class Cli {
       })
       .catch((error) => {
         console.log(error);
-      });;
+      });
   }
 
   // method to start the cli
@@ -508,7 +514,7 @@ class Cli {
       })
       .catch((error) => {
         console.log(error);
-      });;
+      });
   }
 }
 
