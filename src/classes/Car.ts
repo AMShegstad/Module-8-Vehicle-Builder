@@ -60,6 +60,7 @@ class Car extends Vehicle {
     console.log(`Year: ${this.year}`);
     console.log(`Weight: ${this.weight} lbs`);
     console.log(`Top Speed: ${this.topSpeed} mph`);
+    console.log(`class: ${this.constructor.name}`);
 
     // Print details of the wheels
     console.log(

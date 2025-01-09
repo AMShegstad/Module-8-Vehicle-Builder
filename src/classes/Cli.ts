@@ -73,7 +73,7 @@ class Cli {
           this.createCar();
         }
         // TODO: add statements to create a truck or motorbike if the user selects the respective vehicle type
-        else if (answers.vehicleType === " Truck") {
+        else if (answers.vehicleType === "Truck") {
           this.createTruck();
         } else {
           this.createMotorbike();
@@ -200,6 +200,7 @@ class Cli {
         this.vehicles.push(truck);
         // set the selectedVehicleVin to the vin of the car
         this.selectedVehicleVin = truck.vin;
+
         // perform actions on the car
         this.performActions();
       })
@@ -435,23 +436,22 @@ class Cli {
         }
         // TODO: add statements to perform the tow action only if the selected vehicle is a truck. Call the findVehicleToTow method to find a vehicle to tow and pass the selected truck as an argument. After calling the findVehicleToTow method, you will need to return to avoid instantly calling the performActions method again since findVehicleToTow is asynchronous.
         else if (answers.action === "Find a vehicle to tow") {
+          console.log(this.selectedVehicleVin);
           let truck: Truck | undefined;
-          //if (this.vehicles instanceof Truck) {
+
           for (let i = 0; i < this.vehicles.length; i++) {
-            if (this.vehicles[i] instanceof Truck) {
-              if (this.vehicles[i].vin === this.selectedVehicleVin) {
+            if (this.vehicles[i].vin === this.selectedVehicleVin) {
+              if (this.vehicles[i] instanceof Truck) {
                 truck = this.vehicles.find(
-                  (tr) => tr.vin === this.vehicles[i].vin
+                  ({ vin }) => vin === this.selectedVehicleVin
                 ) as Truck;
-                //truck = this.vehicles[i] as Truck;
                 this.findVehicleToTow(truck);
                 return;
-              } else {
-                console.log("Only trucks can tow");
-                //this.findVehicleToTow(this.vehicles[i] as Truck);
-                this.performActions();
-                return;
               }
+            } else {
+              console.log("Only trucks can tow");
+              console.log();
+              this.performActions();
             }
           }
         }
@@ -471,6 +471,7 @@ class Cli {
               } else {
                 console.log("Only motorbikes can pop a wheelie");
                 console.log();
+                break;
               }
             }
           }

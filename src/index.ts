@@ -58,9 +58,12 @@ vehicles.push(motorbike1);
 const cli = new Cli(vehicles);
 
 // start the cli
+
 /*
-for (let i = 0; i < vehicles.length; i++) {
-  console.log(vehicles[i]);
+// Lemme see those VINs!
+for (let i = 0; i < vehicles.length; i++){
+  console.log(`${vehicles[i].vin} + ${vehicles[i].constructor.name}`);
 }
-  */
+*/
+
 cli.startCli();

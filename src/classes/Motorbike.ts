@@ -68,6 +68,7 @@ class Motorbike extends Vehicle {
       console.log(`Weight: ${this.weight}`);
       console.log(`Top Speed: ${this.topSpeed}`);
       console.log(`Color: ${this.color}`);
+      console.log(`class: ${this.constructor.name}`);
 
       // Printing the wheel information. Motorbikes of course only have two wheels.
       console.log(
