@@ -436,7 +436,7 @@ class Cli {
         }
         // TODO: add statements to perform the tow action only if the selected vehicle is a truck. Call the findVehicleToTow method to find a vehicle to tow and pass the selected truck as an argument. After calling the findVehicleToTow method, you will need to return to avoid instantly calling the performActions method again since findVehicleToTow is asynchronous.
         else if (answers.action === "Find a vehicle to tow") {
-          console.log(this.selectedVehicleVin);
+          //console.log(this.selectedVehicleVin);
           let truck: Truck | undefined;
 
           for (let i = 0; i < this.vehicles.length; i++) {
@@ -452,6 +452,7 @@ class Cli {
               console.log("Only trucks can tow");
               console.log();
               this.performActions();
+              return;
             }
           }
         }
